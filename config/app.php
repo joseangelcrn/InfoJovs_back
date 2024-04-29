@@ -196,7 +196,11 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 
+        //Laravel Passport
         Laravel\Passport\PassportServiceProvider::class,
+        //Laravel Permision
+        Spatie\Permission\PermissionServiceProvider::class,
+
 
 
     ],

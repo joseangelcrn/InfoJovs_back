@@ -15,3 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/register',[\App\Http\Controllers\UserController::class,'register']);
+Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
+
+//Protected routes
+Route::group(['middleware' => ['auth:api']], function() {
+
+    Route::get('/user/info',[\App\Http\Controllers\UserController::class,'info']);
+
+    Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout']);
+});

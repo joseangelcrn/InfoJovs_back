@@ -11,7 +11,7 @@
                 "tags": [
                     "Users"
                 ],
-                "description": "Register a new user in InfoJovs",
+                "description": "Sign up in InfoJovs",
                 "operationId": "2f25885f3b6f61ca11724ec302d2e439",
                 "parameters": [
                     {
@@ -68,6 +68,45 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Some error in the request"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Login to InfoJovs",
+                "operationId": "0fc9610184083ac6dddab2c63139225a",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "jose@gmail.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "josejose"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation, you will get the token to visit protected routes in InfoJovs"
                     },
                     "400": {
                         "description": "Some error in the request"

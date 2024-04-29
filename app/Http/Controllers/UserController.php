@@ -20,7 +20,7 @@ class UserController extends Controller
      * @OA\Post(
      *     path="/api/register",
      *     tags={"Users"},
-     *     description="Register a new user in InfoJovs",
+     *     description="Sign up in InfoJovs",
      *
      *      @OA\Parameter(
      *      name="name",
@@ -106,12 +106,33 @@ class UserController extends Controller
     }
 
     /**
-     * @SWG\Post(
-     *     path="/login",
-     *     summary="Login as user, you will get a token in the response",
+     * @OA\Post(
+     *     path="/api/login",
      *     tags={"Users"},
-     *     @SWG\Response(response=200, description="Successful operation"),
-     *     @SWG\Response(response=400, description="Wrong credentials")
+     *     description="Login to InfoJovs",
+     *
+     *      @OA\Parameter(
+     *      name="email",
+     *      description="Email of user",
+     *      example="jose@gmail.com",
+     *      required=true,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
+     *      @OA\Parameter(
+     *      name="password",
+     *      description="Password of user",
+     *      example="josejose",
+     *      required=true,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
+     *     @OA\Response(response=200, description="Successful operation, you will get the token to visit protected routes in InfoJovs"),
+     *     @OA\Response(response=400, description="Some error in the request")
      * )
      */
     public function login(Request $request)

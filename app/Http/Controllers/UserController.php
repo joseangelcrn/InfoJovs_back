@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Concerns\HidesAttributes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Validator;
@@ -196,9 +197,11 @@ class UserController extends Controller
      */
     public function info(Request $request)
     {
-        $user = $request->user();
+        $user = $request->user()->load(['roles' => function ($q) {
+            $q->select('name');
+        }]);
 
-        return response()->json(['message' => $user]);
+        return response()->json(['user' => $user]);
     }
 
 

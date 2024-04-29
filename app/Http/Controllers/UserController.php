@@ -9,6 +9,77 @@ use \Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+    /**
+     *
+     * @OA\Info(
+     *      version="1.0.0",
+     *      title="L5 OpenApi",
+     *      description="L5 Swagger OpenApi for the InfoJovs backend. "
+     * )
+     * @OA\Post(
+     *     path="/api/register",
+     *     tags={"Users"},
+     *     description="Register a new user in InfoJovs",
+     *
+     *      @OA\Parameter(
+     *      name="name",
+     *      description="Real name of user",
+     *      example="José Ángel",
+     *      required=true,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
+     *     @OA\Parameter(
+     *      name="first_surname",
+     *      description="First surname of user",
+     *      example="Cabeza",
+     *      required=true,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
+     *
+     *     @OA\Parameter(
+     *      name="second_surname",
+     *      description="Second surname of user",
+     *      example="Rodríguez-Navas",
+     *      required=true,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
+     *
+     *     @OA\Parameter(
+     *      name="email",
+     *      description="Email of user",
+     *      example="jose@gmail.com",
+     *      required=true,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
+     *
+     *     @OA\Parameter(
+     *      name="password",
+     *      description="Password of user",
+     *      example="josejose",
+     *      required=true,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
+     *
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=400, description="Some error in the request")
+     * )
+     */
     public function register(Request $request)
     {
 
@@ -34,6 +105,15 @@ class UserController extends Controller
         return response()->json(['message' => 'User created successfully']);
     }
 
+    /**
+     * @SWG\Post(
+     *     path="/login",
+     *     summary="Login as user, you will get a token in the response",
+     *     tags={"Users"},
+     *     @SWG\Response(response=200, description="Successful operation"),
+     *     @SWG\Response(response=400, description="Wrong credentials")
+     * )
+     */
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -66,6 +146,15 @@ class UserController extends Controller
 
     }
 
+    /**
+     * @SWG\Post(
+     *     path="/logout",
+     *     summary="Close a user session",
+     *     tags={"Users"},
+     *     @SWG\Response(response=200, description="Successful operation"),
+     *     @SWG\Response(response=400, description="Some error in the request")
+     * )
+     */
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
@@ -75,6 +164,15 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @SWG\Get(
+     *     path="/user/info",
+     *     summary="Information about logged user",
+     *     tags={"Users"},
+     *     @SWG\Response(response=200, description="Successful operation"),
+     *     @SWG\Response(response=400, description="Some error in the request")
+     * )
+     */
     public function info(Request $request)
     {
         $user = $request->user();

@@ -1,0 +1,79 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi for the InfoJovs backend. ",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Register a new user in InfoJovs",
+                "operationId": "2f25885f3b6f61ca11724ec302d2e439",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Real name of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "José Ángel"
+                    },
+                    {
+                        "name": "first_surname",
+                        "in": "query",
+                        "description": "First surname of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Cabeza"
+                    },
+                    {
+                        "name": "second_surname",
+                        "in": "query",
+                        "description": "Second surname of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Rodríguez-Navas"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "jose@gmail.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "josejose"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Some error in the request"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -20,7 +20,15 @@ Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
 //Protected routes
 Route::group(['middleware' => ['auth:api']], function() {
 
-    Route::get('/user/info',[\App\Http\Controllers\UserController::class,'info']);
+    // User - routes
+    Route::group(['prefix'=>'/user'],function(){
+        Route::get('/info',[\App\Http\Controllers\UserController::class,'info']);
+    });
+
+    // Job - routes
+    Route::group(['prefix'=>'/job'],function(){
+        Route::get('/search',[\App\Http\Controllers\JobController::class,'search']);
+    });
 
     Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout']);
 });

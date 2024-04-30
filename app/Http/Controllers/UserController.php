@@ -197,11 +197,13 @@ class UserController extends Controller
      */
     public function info(Request $request)
     {
-        $user = $request->user()->load(['roles' => function ($q) {
-            $q->select('name');
-        }]);
+        $user = $request->user();
 
-        return response()->json(['user' => $user]);
+        $roles = $user->roles->pluck('name')->toArray();
+
+        $user->makeHidden('roles');
+
+        return response()->json(['user' => $user,'roles'=>$roles]);
     }
 
 

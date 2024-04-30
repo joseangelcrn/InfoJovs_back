@@ -1,4 +1,4 @@
-# InfoJovs (v of Vue) || Backend Side 
+# InfoJovs (v of Vue) || Backend Side of [InfoJovs_front](https://github.com/joseangelcrn/InfoJovs_front)
  
 ## An infojobs app based (in progress..) 
 
@@ -22,6 +22,7 @@ DB_DATABASE=infojovs
 DB_USERNAME=username
 DB_PASSWORD=password
 ```
+Do you need a [Docker](https://hub.docker.com/repository/docker/josanangel/lamp_php81_xdebug31_laravel/general)?
 
 ## User credentials of seeders:
 

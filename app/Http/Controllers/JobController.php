@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class JobController extends Controller
 {
     //
 
     public function search(Request $request){
-        $title = $request->get('filter_title');
-        $description = $request->get('filter_description');
+        $title = $request->get('title');
+        $description = $request->get('description');
 
-        $perPage = $request->get('per_page');
-        $currentPage = $request->get('current_page');
+        $perPage = $request->get('perPage',5);
+        $currentPage = $request->get('currentPage',1);
 
 
         $queryJobs = Job::query();
@@ -31,9 +32,13 @@ class JobController extends Controller
 
         return response()->json([
             'jobs'=>$paginatedJobs->items(),
-            'per_page'=>$paginatedJobs->perPage(),
-            'current_page'=>$paginatedJobs->currentPage(),
-            'total_page'=>$paginatedJobs->total()
+            'pagination'=>[
+                'perPage'=>$paginatedJobs->perPage(),
+                'currentPage'=>$paginatedJobs->currentPage(),
+                'lastPage'=>$paginatedJobs->lastPage(),
+                'totalItems'=>$paginatedJobs->total()
+            ]
+
         ]);
     }
 }

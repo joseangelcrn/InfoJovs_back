@@ -18,7 +18,7 @@ php artisan migrate --seed
 php artisan passport:install
 ```
 
-## .env
+### .env
 Ensure to change :
 ```
 DB_CONNECTION=mysql
@@ -28,7 +28,7 @@ DB_DATABASE=infojovs
 DB_USERNAME=username
 DB_PASSWORD=password
 ```
-## Quick launch
+### Quick launch
 
 ````
 php artisan serve --port 8686

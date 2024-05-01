@@ -1,5 +1,11 @@
 # InfoJovs (v of Vue) || Backend Side of [InfoJovs_front](https://github.com/joseangelcrn/InfoJovs_front)
- 
+
+
+|         | Version    |
+| :---:   | :---: | 
+| PHP     | 8.1   |
+| Laravel     | 10   |
+
 ## An infojobs app based (in progress..) 
 
 ## Setup 

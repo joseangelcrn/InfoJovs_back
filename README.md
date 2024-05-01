@@ -22,6 +22,12 @@ DB_DATABASE=infojovs
 DB_USERNAME=username
 DB_PASSWORD=password
 ```
+## Quick launch
+
+````
+php artisan serve --port 8686
+````
+
 Do you need a [Docker](https://hub.docker.com/repository/docker/josanangel/lamp_php81_xdebug31_laravel/general)?
 
 ## User credentials of seeders:

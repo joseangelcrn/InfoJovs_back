@@ -52,4 +52,23 @@ class User extends Authenticatable
     public function jobsAsRecruiter(){
        return $this->hasMany(Job::class,'recruiter_id');
     }
+
+    public function candidatures(){
+        return $this->hasMany(Candidature::class,'employee_id');
+    }
+
+    public function jobsAsEmployee(){
+        return $this->hasManyThrough(Job::class,Candidature::class,'employee_id','id','id','job_id');
+    }
+
+
+
+    //Tests functions
+    public static function getEmployee(){
+        return self::where('name','employee')->first();
+    }
+
+    public static function getRecruiter(){
+        return self::where('name','recruiter')->first();
+    }
 }

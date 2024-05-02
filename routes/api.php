@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,18 +25,18 @@ Route::group(['middleware' => ['auth:api']], function() {
 
     // User - routes
     Route::group(['prefix'=>'/user'],function(){
-        Route::get('/info',[\App\Http\Controllers\UserController::class,'info']);
+        Route::get('/info',[UserController::class,'info']);
+        Route::post('/logout',[UserController::class,'logout']);
     });
 
     // Job - routes
     Route::group(['prefix'=>'/job'],function(){
-        Route::get('/search',[\App\Http\Controllers\JobController::class,'search']);
+        Route::get('/search',[JobController::class,'search']);
     });
 
     //Candidature - routes
     Route::group(['prefix'=>'/candidature'],function(){
-        Route::get('/my_candidatures',[\App\Http\Controllers\CandidatureController::class,'myCandidatures']);
+        Route::get('/my_candidatures',[CandidatureController::class,'myCandidatures']);
     });
 
-    Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout']);
 });

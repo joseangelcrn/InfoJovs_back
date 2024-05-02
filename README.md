@@ -22,6 +22,7 @@ php artisan passport:install
 ```
 
 ### .env
+
 Ensure to change :
 ```
 DB_CONNECTION=mysql
@@ -31,13 +32,25 @@ DB_DATABASE=infojovs
 DB_USERNAME=username
 DB_PASSWORD=password
 ```
+
 ### Quick launch
 
 ````
 php artisan serve --port 8686
 ````
 
+### Docker Setup
+
 Do you need a [Docker](https://hub.docker.com/repository/docker/josanangel/lamp_php81_xdebug31_laravel/general)?
+
+
+````
+docker pull josanangel/lamp_php81_xdebug31_laravel
+````
+
+````
+docker  run -d --name infojovs_back  -p 8686:80 -v "/path/to/InfoJovs_back:/var/www/html/app" josanangel/lamp_php81_xdebug31_laravel
+````
 
 ## User credentials of seeders:
 

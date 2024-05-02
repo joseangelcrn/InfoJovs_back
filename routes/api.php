@@ -30,5 +30,10 @@ Route::group(['middleware' => ['auth:api']], function() {
         Route::get('/search',[\App\Http\Controllers\JobController::class,'search']);
     });
 
+    //Candidature - routes
+    Route::group(['prefix'=>'/candidature'],function(){
+        Route::get('/my_candidatures',[\App\Http\Controllers\CandidatureController::class,'myCandidatures']);
+    });
+
     Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout']);
 });

@@ -39,14 +39,23 @@ DB_PASSWORD=password
 php artisan serve --port 8686
 ````
 
-### Docker Setup
+### Docker Setup  (Recommended)
 
 Do you need a [Docker](https://hub.docker.com/repository/docker/josanangel/lamp_php81_xdebug31_laravel/general)?
 
+Remember to change in your `.env`:
+
+````
+DB_CONNECTION=HOST.DOCKER.INTERNAL
+````
+
+Pull Image:
 
 ````
 docker pull josanangel/lamp_php81_xdebug31_laravel
 ````
+
+Create your **InfoJovs_back container**: 
 
 ````
 docker  run -d --name infojovs_back  -p 8686:80 -v "/path/to/InfoJovs_back:/var/www/html/app" josanangel/lamp_php81_xdebug31_laravel
@@ -67,3 +76,4 @@ password: employee
 email: recruiter@gmail.com
 password: recruiter
 ```
+

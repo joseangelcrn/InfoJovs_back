@@ -9,7 +9,30 @@
 | PHP     | 8.1   |
 | Laravel     | 10   |
 
-## An infojobs app based (in progress..) 
+## An infojobs app based (in progress..)
+
+<hr>
+
+An application with two main roles ( **Recruiter** and **Employee** )  where you can **offer jobs** if you are  Recruiter or **to apply for jobs** if are an Employee.
+
+
+### **Recruiter**
+
+- [ ] You can create offers
+- [ ] You can close your offers 
+- [ ] See how many employees have applied to the offer
+- [ ] Change status of candidatures for employees who are applied in your own offers
+
+
+### **Employee**
+
+- [ ] You can apply offers
+- [x] See your candidatures status
+- [ ] You can create a dynamic CV who recruiters will be able to see to get more information about your professional profile
+- [ ] You can search jobs filtering by different fields
+
+      
+<hr>
 
 ## Setup 
 
@@ -46,7 +69,7 @@ Do you need a [Docker](https://hub.docker.com/repository/docker/josanangel/lamp_
 Remember to change in your `.env`:
 
 ````
-DB_CONNECTION=HOST.DOCKER.INTERNAL
+DB_CONNECTION=host.docker.internal
 ````
 
 Pull Image:

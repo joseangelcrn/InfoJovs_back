@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Candidature;
+use App\Models\CandidatureStatus;
 use App\Models\Job;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,11 +17,12 @@ class CandidatureSeeder extends Seeder
     public function run(): void
     {
         //
-        $randomJobs = Job::inRandomOrder()->take(3)->get();
+        $amount = 8;
+        $randomJobs = Job::inRandomOrder()->take($amount)->get();
         $employee = User::getEmployee();
 
-        $data = $randomJobs->map(function($item) use ($employee){
-            return ['job_id'=>$item->id,'employee_id'=>$employee->id];
+        $data = $randomJobs->map(function($item,$index) use ($employee){
+            return ['job_id'=>$item->id,'employee_id'=>$employee->id,'status_id'=>CandidatureStatus::inRandomOrder()->first()->id];
         })->toArray();
 
 

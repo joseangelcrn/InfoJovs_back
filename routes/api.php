@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth:api']], function() {
 
     // Job - routes
     Route::group(['prefix'=>'/job'],function(){
+        Route::post('/',[JobController::class,'store']);
         Route::get('/search',[JobController::class,'search']);
     });
 

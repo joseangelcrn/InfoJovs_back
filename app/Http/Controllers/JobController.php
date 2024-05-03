@@ -69,6 +69,35 @@ class JobController extends Controller
         ]);
     }
 
+    public function update(Request $request){
+
+        $id = $request->get('id');
+        $title = $request->get('title');
+        $description = $request->get('description');
+        $tags = $request->get('tags', []);
+
+        $job = Job::findOrFail($id);
+
+        if (Auth::id() != $job->recruiter_id){
+            return response()->json(['message'=>'You can only update your own jobs'],400);
+        }
+
+        $job->title = $title;
+        $job->description = $description;
+        $job->save();
+
+        foreach ($tags as $tag){
+            $job->tags()->firstOrCreate(['name'=>$tag]);
+        }
+
+        $job->tags()->whereNotIn('name',$tags)->delete();
+
+        return response()->json([
+            'message'=>'You have successfully updated your job offer.',
+            'job'=>$job
+        ]);
+    }
+
     public function info($id){
 
         $job = Job::With(['tags']   )->findOrFail($id);

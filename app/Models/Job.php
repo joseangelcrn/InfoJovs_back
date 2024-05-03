@@ -16,4 +16,9 @@ class Job extends Model
     public function recruiter(){
         return $this->belongsTo(User::class);
     }
+
+    public function tags()
+    {
+        return $this->morphMany(Tag::class, 'taggable');
+    }
 }

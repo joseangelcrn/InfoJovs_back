@@ -19,6 +19,7 @@ class JobController extends Controller
 
 
         $queryJobs = Job::query();
+        $queryJobs = $queryJobs->with(['tags']);
 
         if ($title){
             $queryJobs = $queryJobs->where('title','like',"%$title%");
@@ -40,5 +41,14 @@ class JobController extends Controller
             ]
 
         ]);
+    }
+
+    public function store(Request $request){
+
+        $title = $request->get('title');
+        $description = $request->get('description');
+        $tags = $request->get('tags');
+
+
     }
 }

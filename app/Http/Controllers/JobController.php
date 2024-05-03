@@ -68,4 +68,13 @@ class JobController extends Controller
             'job'=>$newJob->load('tags')
         ]);
     }
+
+    public function info($id){
+
+        $job = Job::With(['tags']   )->findOrFail($id);
+
+        return response([
+            'job'=>$job
+        ]);
+    }
 }

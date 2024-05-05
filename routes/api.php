@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth:api']], function() {
 
     //Candidature - routes
     Route::group(['prefix'=>'/candidature'],function(){
+        Route::post('/',[CandidatureController::class,'store']);
         Route::get('/my_candidatures',[CandidatureController::class,'myCandidatures']);
     });
 

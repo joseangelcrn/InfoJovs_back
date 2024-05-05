@@ -101,9 +101,11 @@ class JobController extends Controller
     public function info($id){
 
         $job = Job::With(['tags']   )->findOrFail($id);
+        $alreadyRegistered = Auth::user()->candidatures()->where('job_id',$id)->exists();
 
         return response([
-            'job'=>$job
+            'job'=>$job,
+            'alreadyRegistered'=>$alreadyRegistered
         ]);
     }
 }

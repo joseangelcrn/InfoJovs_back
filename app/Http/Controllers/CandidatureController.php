@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidature;
+use App\Models\Job;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,18 @@ class CandidatureController extends Controller
                 'totalItems'=>$paginatedCandidatures->total()
             ]
 
+        ]);
+    }
+
+    public function store(Request $request){
+        $jobId = $request->get('job_id');
+
+        $job = Job::findOrFail($jobId);
+
+        Auth::user()->candidatures()->firstOrCreate(['job_id'=>$job->id]);
+
+        return response()->json([
+            'message'=>'Candidature successfully created',
         ]);
     }
 }

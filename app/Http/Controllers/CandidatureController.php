@@ -30,15 +30,36 @@ class CandidatureController extends Controller
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $jobId = $request->get('job_id');
 
         $job = Job::findOrFail($jobId);
 
-        Auth::user()->candidatures()->firstOrCreate(['job_id'=>$job->id]);
+        Auth::user()->candidatures()->firstOrCreate(['job_id' => $job->id]);
 
         return response()->json([
-            'message'=>'Candidature successfully created',
+            'message' => 'Candidature successfully created',
         ]);
     }
+
+    public function info($jobId){
+
+
+        $job = Job::with(['candidatures.status','candidatures.employee'])->findOrFail($jobId);
+
+        if ( !Auth::user()->hasRole('recruiter') ||  Auth::id() != $job->recruiter_id){
+            return response()->json([
+                'message'=>'You can not see candidates of this job'
+            ],401);
+        }
+
+
+        return response()->json([
+            'candidatures'=> $job->candidatures
+        ]);
+
+
+    }
+
 }

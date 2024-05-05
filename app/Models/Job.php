@@ -17,6 +17,10 @@ class Job extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function candidatures(){
+        return $this->hasMany(Candidature::class,'job_id');
+    }
+
     public function tags()
     {
         return $this->morphMany(Tag::class, 'taggable');

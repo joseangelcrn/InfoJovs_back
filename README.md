@@ -18,7 +18,7 @@ An application with two main roles ( **Recruiter** and **Employee** )  where you
 
 ### **Recruiter**
 
-- [ ] You can create offers
+- [x] You can create offers
 - [ ] You can close your offers 
 - [ ] See how many employees have applied to the offer
 - [ ] Change status of candidatures for employees who are applied in your own offers
@@ -26,7 +26,7 @@ An application with two main roles ( **Recruiter** and **Employee** )  where you
 
 ### **Employee**
 
-- [ ] You can apply offers
+- [x] You can apply offers
 - [x] See your candidatures status
 - [ ] You can create a dynamic CV who recruiters will be able to see to get more information about your professional profile
 - [ ] You can search jobs filtering by different fields

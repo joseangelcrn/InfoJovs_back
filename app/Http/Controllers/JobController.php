@@ -16,13 +16,13 @@ class JobController extends Controller
     {
         $title = $request->get('title');
         $description = $request->get('description');
+        $ignoreOwn = $request->get('ignore_own') == "true";
 
         $perPage = $request->get('perPage', 5);
         $currentPage = $request->get('currentPage', 1);
 
 
-        $queryJobs = Job::query();
-        $queryJobs = $queryJobs->with(['tags']);
+        $queryJobs = Job::query()->with(['tags']);
 
         if ($title) {
             $queryJobs = $queryJobs->where('title', 'like', "%$title%");
@@ -30,6 +30,15 @@ class JobController extends Controller
 
         if ($description) {
             $queryJobs = $queryJobs->where('description', 'like', "%$description%");
+        }
+
+        if ($ignoreOwn and Auth::user()->hasRole('recruiter')){
+            $queryJobs = $queryJobs->where('recruiter_id','!=',Auth::id());
+        }
+        else if ($ignoreOwn and Auth::user()->hasRole('employee')){
+            $queryJobs = $queryJobs->whereDoesntHave('candidatures.employee',function($q){
+                return $q->where('employee_id',Auth::id());
+            });
         }
 
         $paginatedJobs = $queryJobs->paginate($perPage, '*', null, $currentPage);

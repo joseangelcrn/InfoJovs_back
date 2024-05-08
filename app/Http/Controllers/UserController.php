@@ -221,7 +221,7 @@ class UserController extends Controller
      */
     public function info(Request $request)
     {
-        $user = Auth::user()->with(['roles','professionalProfile'])->first();
+        $user = User::with(['roles','professionalProfile'])->find(Auth::id());
         $roles = $user->roles->pluck('name')->toArray();
 
         $user->makeHidden('roles');

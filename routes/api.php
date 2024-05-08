@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\ProfessionalProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/signup',[\App\Http\Controllers\UserController::class,'register']);
-Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
+Route::post('/signup',[UserController::class,'register']);
+Route::post('/login',[UserController::class,'login']);
+Route::get('/professional_profiles/search',[ProfessionalProfileController::class,'search']);
+Route::get('/roles',[RoleController::class,'getAll']);
 
 //Protected routes
 Route::group(['middleware' => ['auth:api']], function() {
@@ -35,6 +39,7 @@ Route::group(['middleware' => ['auth:api']], function() {
         Route::get('/search',[JobController::class,'search']);
         Route::get('/{id}',[JobController::class,'info']);
         Route::put('/',[JobController::class,'update']);
+        Route::get('/additional_info/{id}',[JobController::class,'additionalInfo']);
     });
 
     //Candidature - routes

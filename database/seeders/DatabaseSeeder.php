@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoleSeeder::class, //Required
+            ProfessionalProfileSeeder::class, //Required
             UserSeeder::class,
             JobSeeder::class,
             CandidatureStatusSeeder::class, //Required

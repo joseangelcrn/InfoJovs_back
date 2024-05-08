@@ -14,8 +14,8 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         //
-        Role::findOrCreate('recruiter');
-        Role::findOrCreate('employee');
+        Role::findOrCreate('Recruiter');
+        Role::findOrCreate('Employee');
 
     }
 }

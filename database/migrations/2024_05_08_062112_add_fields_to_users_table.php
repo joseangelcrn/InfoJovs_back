@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('candidature_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->date('birth_date');
+            $table->unsignedBigInteger('professional_profile_id');
         });
     }
 
@@ -23,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('candidature_statuses');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

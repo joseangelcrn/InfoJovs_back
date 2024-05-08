@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProfessionalProfile;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HidesAttributes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -90,6 +93,9 @@ class UserController extends Controller
             'second_surname' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'password' => 'required|max:255',
+            'role_id' => 'required',
+            'professional_profile_id' => 'required',
+            'birthdate'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -98,10 +104,28 @@ class UserController extends Controller
             ], 400);
         }
 
-        $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
+        $name = $request->get('name');
+        $password = $request->get('password');
+        $firstSurname = $request->get('first_surname');
+        $secondSurname = $request->get('second_surname');
+        $email = $request->get('email');
+        $roleId = $request->get('role_id');
+        $professionalProfileId = $request->get('professional_profile_id');
+        $birthDate = $request->get('birthdate');
 
-        $newUser = User::create($data);
+        $role = Role::findById($roleId);
+
+        $newUser = new User();
+        $newUser->name = $name;
+        $newUser->password = bcrypt($password);
+        $newUser->email = $email;
+        $newUser->first_surname = $firstSurname;
+        $newUser->second_surname = $secondSurname;
+        $newUser->professional_profile_id = $professionalProfileId;
+        $newUser->birth_date = Carbon::parse($birthDate);
+        $newUser->save();
+
+        $newUser->assignRole($role);
 
         return response()->json(['message' => 'User created successfully']);
     }
@@ -197,8 +221,7 @@ class UserController extends Controller
      */
     public function info(Request $request)
     {
-        $user = $request->user();
-
+        $user = Auth::user()->with(['roles','professionalProfile'])->first();
         $roles = $user->roles->pluck('name')->toArray();
 
         $user->makeHidden('roles');

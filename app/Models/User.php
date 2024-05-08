@@ -24,6 +24,7 @@ class User extends Authenticatable
         'second_surname',
         'email',
         'password',
+        'professional_profile_id'
     ];
 
     /**
@@ -61,7 +62,9 @@ class User extends Authenticatable
         return $this->hasManyThrough(Job::class,Candidature::class,'employee_id','id','id','job_id');
     }
 
-
+    public function professionalProfile(){
+        return $this->belongsTo(ProfessionalProfile::class,'professional_profile_id');
+    }
 
     //Tests functions
     public static function getEmployee(){

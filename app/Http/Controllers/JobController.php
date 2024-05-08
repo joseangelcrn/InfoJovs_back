@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidature;
+use App\Models\CandidatureStatus;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rules\Can;
 
 class JobController extends Controller
 {
@@ -116,5 +119,19 @@ class JobController extends Controller
             'job'=>$job,
             'alreadyRegistered'=>$alreadyRegistered
         ]);
+    }
+
+    public function additionalInfo($id){
+
+        $status = Candidature::selectRaw('status.id,status.name,count(*) as amount')
+             ->where('job_id',$id)
+            ->leftJoin('candidature_statuses as status','status.id','candidatures.status_id')
+            ->groupBy('status.id')
+            ->get();
+
+        return response()->json([
+            'status'=>$status
+        ]);
+
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProfessionalProfile;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,7 +29,9 @@ class UserSeeder extends Seeder
             'first_surname'=>'First surname',
             'second_surname'=>'Second surname',
             'email'=>'recruiter@gmail.com',
-            'password'=>bcrypt('recruiter')
+            'password'=>bcrypt('recruiter'),
+            'professional_profile_id'=>ProfessionalProfile::where('title','it recruiter')->first()->id,
+            'birth_date'=>fake()->dateTimeBetween('-30 years','-20 years')
         ]);
 
 
@@ -36,7 +40,9 @@ class UserSeeder extends Seeder
             'first_surname'=>'First surname',
             'second_surname'=>'Second surname',
             'email'=>'employee@gmail.com',
-            'password'=>bcrypt('employee')
+            'password'=>bcrypt('employee'),
+            'professional_profile_id'=>ProfessionalProfile::where('title','Full-stack developer')->first()->id,
+            'birth_date'=>fake()->dateTimeBetween('-30 years','-20 years')
         ]);
 
         //Assign roles

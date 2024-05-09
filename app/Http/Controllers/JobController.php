@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Libs\ChartHelper;
 use App\Models\Candidature;
 use App\Models\CandidatureStatus;
 use App\Models\Job;
@@ -138,6 +139,9 @@ class JobController extends Controller
             ->leftJoin('professional_profiles as profile','profile.id','employee.professional_profile_id')
             ->groupBy(['jobs.id','profile.id'])
         ->get();
+
+       $status = ChartHelper::generateStatus($status);
+       $profiles = ChartHelper::generateProfile($profiles);
 
         return response()->json([
             'status'=>$status,

@@ -48,7 +48,7 @@ class CandidatureController extends Controller
 
         $job = Job::with(['candidatures.status','candidatures.employee'])->findOrFail($jobId);
 
-        if ( !Auth::user()->hasRole('recruiter') ||  Auth::id() != $job->recruiter_id){
+        if ( !Auth::user()->hasRole('Recruiter') ||  Auth::id() != $job->recruiter_id){
             return response()->json([
                 'message'=>'You can not see candidates of this job'
             ],401);

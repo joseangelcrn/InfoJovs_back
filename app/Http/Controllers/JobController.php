@@ -35,10 +35,10 @@ class JobController extends Controller
             $queryJobs = $queryJobs->where('description', 'like', "%$description%");
         }
 
-        if ($ignoreOwn and Auth::user()->hasRole('recruiter')){
+        if ($ignoreOwn and Auth::user()->hasRole('Recruiter')){
             $queryJobs = $queryJobs->where('recruiter_id','!=',Auth::id());
         }
-        else if ($ignoreOwn and Auth::user()->hasRole('employee')){
+        else if ($ignoreOwn and Auth::user()->hasRole('Employee')){
             $queryJobs = $queryJobs->whereDoesntHave('candidatures.employee',function($q){
                 return $q->where('employee_id',Auth::id());
             });

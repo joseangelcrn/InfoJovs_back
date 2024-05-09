@@ -134,6 +134,7 @@ class JobController extends Controller
 
         $profiles = Candidature::
         selectRaw('jobs.id as jobId,profile.id,profile.title,count(*) as amount')
+            ->where('jobs.id',$id)
             ->leftJoin('jobs','candidatures.job_id','jobs.id')
             ->leftJoin('users as employee','employee.id','candidatures.employee_id')
             ->leftJoin('professional_profiles as profile','profile.id','employee.professional_profile_id')

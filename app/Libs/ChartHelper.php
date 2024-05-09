@@ -120,11 +120,11 @@ class ChartHelper
         $chartData['options'] = $options;
 
 
-        foreach ($profiles as $status) {
+        foreach ($profiles as $profile) {
             $chartData['datasets'][] = [
-                'label' => [$status->name],
+                'label' => [$profile->title],
                 'backgroundColor' => [fake()->hexColor()],
-                'data' => [$status->amount]
+                'data' => [$profile->amount]
             ];
         }
 

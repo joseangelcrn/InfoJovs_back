@@ -116,7 +116,7 @@ class ChartHelper
     public static function generateProfile($profiles)
     {
         $chartData = self::generateDefaultStructure();
-        $options = self::generateOptions('Profiles');
+        $options = self::generateOptions('Professional Profiles');
         $chartData['options'] = $options;
 
 

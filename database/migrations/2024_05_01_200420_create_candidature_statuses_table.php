@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('candidatures', function (Blueprint $table) {
+        Schema::create('candidature_statuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('job_id');
-            $table->unsignedBigInteger('status_id')->default(1);
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('candidatures');
+        Schema::dropIfExists('candidature_statuses');
     }
 };

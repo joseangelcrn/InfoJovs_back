@@ -15,15 +15,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-//        $table->id();
-//        $table->string('name');
-//        $table->string('first_surname');
-//        $table->string('second_surname');
-//        $table->string('email')->unique();
-//        $table->timestamp('email_verified_at')->nullable();
-//        $table->string('password');
-//        $table->rememberToken();
-//        $table->timestamps();
         $recruiter = User::create([
             'name'=>'Recruiter',
             'first_surname'=>'First surname',
@@ -47,7 +38,13 @@ class UserSeeder extends Seeder
 
         //Assign roles
 
-        $recruiter->assignRole('recruiter');
-        $employee->assignRole('employee');
+        $recruiter->assignRole('Recruiter');
+        $employee->assignRole('Employee');
+
+        //More Employees...
+        $employees = User::factory()->createMany(100);
+        foreach ($employees as $employee){
+            $employee->assignRole('Employee');
+        }
     }
 }

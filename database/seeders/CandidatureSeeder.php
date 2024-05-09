@@ -8,6 +8,7 @@ use App\Models\Job;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class CandidatureSeeder extends Seeder
 {
@@ -28,5 +29,25 @@ class CandidatureSeeder extends Seeder
 
        Candidature::insert($data);
 
+
+       //More Candidatures...
+
+        $amount = 30;
+        $jobs = Job::select('id')->get();
+        $statuses = CandidatureStatus::all();
+
+        foreach ($jobs as $job){
+            $employees = User::inRandomOrder()
+                ->whereHas('roles',function ($q){
+                    return $q->where('roles.name','Employee');
+                })
+                ->take($amount)->get();
+            foreach ($employees as $employee){
+                Log::debug('employee profile id = '.$employee->professional_profile_id);
+                Log::debug('job id  = '.$job->id);
+
+                $employee->candidatures()->create(['job_id'=>$job->id,'status_id'=>$statuses->random()->id]);
+            }
+        }
     }
 }

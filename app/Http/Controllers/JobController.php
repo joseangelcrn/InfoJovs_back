@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Candidature;
 use App\Models\CandidatureStatus;
 use App\Models\Job;
+use App\Models\ProfessionalProfile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -129,8 +131,17 @@ class JobController extends Controller
             ->groupBy('status.id')
             ->get();
 
+        $profiles = Candidature::
+        selectRaw('jobs.id as jobId,profile.id,profile.title,count(*) as amount')
+            ->leftJoin('jobs','candidatures.job_id','jobs.id')
+            ->leftJoin('users as employee','employee.id','candidatures.employee_id')
+            ->leftJoin('professional_profiles as profile','profile.id','employee.professional_profile_id')
+            ->groupBy(['jobs.id','profile.id'])
+        ->get();
+
         return response()->json([
-            'status'=>$status
+            'status'=>$status,
+            'profiles'=>$profiles
         ]);
 
     }

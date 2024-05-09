@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ProfessionalProfile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,12 +18,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $profiles = ProfessionalProfile::all();
         return [
             'name' => fake()->name(),
+            'first_surname'=>fake()->firstName,
+            'second_surname'=>fake()->lastName,
+            'birth_date'=>fake()->dateTimeBetween('-40 years','-20 years'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'professional_profile_id'=>$profiles->random()->id
         ];
     }
 

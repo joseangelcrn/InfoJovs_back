@@ -113,6 +113,11 @@ class ChartHelper
         return $chartData;
     }
 
+    /**
+     * @param $profiles
+     * @return array
+     * Default structure adapted to profile chart
+     */
     public static function generateProfile($profiles)
     {
         $chartData = self::generateDefaultStructure();

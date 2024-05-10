@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\Feature\\UserTest::test_login_with_wrong_credentials_must_fail":7},"times":{"Tests\\Feature\\UserTest::test_login_with_correct_credentials_must_success":0.302,"Tests\\Feature\\UserTest::test_login_with_wrong_credentials_must_fail":0.299}}

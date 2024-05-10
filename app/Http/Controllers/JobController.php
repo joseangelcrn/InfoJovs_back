@@ -124,6 +124,34 @@ class JobController extends Controller
         ]);
     }
 
+    public function updateActiveValue(Request $request){
+        $jobId = $request->get('id');
+        $activeValue = $request->get('active');
+
+        if (
+            !Auth::user()->hasRole('Recruiter') or
+            !Auth::user()->whereRelation('jobsAsRecruiter','id',$jobId)->exists()
+        ){
+            return response()->json([
+                'message'=>'Unauthorized'
+            ],401);
+        }
+
+
+        $result = Job::where('id',$jobId)->update(['active'=>$activeValue]);
+
+        if ($result){
+            $message = $activeValue ? 'The offer has been activated':  'Offer has been deactivated' ;
+            return response()->json([
+                'message'=>$message
+            ]);
+        }
+
+        return response()->json([
+            'message'=>'Something was wrong'
+        ],500);
+    }
+
     public function additionalInfo($id){
 
         $status = Candidature::selectRaw('status.id,status.name,count(*) as amount')

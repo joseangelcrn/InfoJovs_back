@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:api']], function() {
         Route::get('/{id}',[JobController::class,'info']);
         Route::put('/',[JobController::class,'update']);
         Route::get('/additional_info/{id}',[JobController::class,'additionalInfo']);
+        Route::post('/update_active',[JobController::class,'updateActiveValue']);
     });
 
     //Candidature - routes

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('jobs', function (Blueprint $table) {
             //
-            $table->date('birth_date');
-            $table->unsignedBigInteger('professional_profile_id');
+            $table->boolean('active')->default(true)->after('recruiter_id');
         });
     }
 
@@ -23,9 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('birth_date');
-            $table->dropColumn('professional_profile_id');
+        Schema::table('jobs', function (Blueprint $table) {
+            //
+            $table->dropColumn('active');
         });
     }
 };

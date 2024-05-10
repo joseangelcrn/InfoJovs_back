@@ -169,6 +169,12 @@ class JobController extends Controller
             ->groupBy(['jobs.id','profile.id'])
         ->get();
 
+//        //profiles new version
+//        $profilesv2 = ProfessionalProfile::withCount(['employee'])
+//            ->whereRelation('employee.candidatures','job_id',$id)
+//            ->get();
+
+
        $status = ChartHelper::generateStatus($status);
        $profiles = ChartHelper::generateProfile($profiles);
 

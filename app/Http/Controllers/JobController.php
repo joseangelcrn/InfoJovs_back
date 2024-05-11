@@ -182,13 +182,13 @@ class JobController extends Controller
 
         /** Eloquent Query **/
         $profiles = ProfessionalProfile::
-        whereRelation('employee.candidatures.job','id','=',1)
-        ->withCount(['employee as amount'=>function ($q){
-            $q->whereRelation('candidatures','job_id',1);
+        whereRelation('employee.candidatures.job','id','=',$id)
+        ->withCount(['employee as amount'=>function ($q) use($id){
+            $q->whereRelation('candidatures','job_id',$id);
         }])->get();
 
-       $status = ChartHelper::generateStatus($status);
-       $profiles = ChartHelper::generateProfile($profiles);
+        $status = ChartHelper::generateStatus($status);
+        $profiles = ChartHelper::generateProfile($profiles);
 
         return response()->json([
             'status'=>$status,

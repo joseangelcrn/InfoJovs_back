@@ -43,5 +43,30 @@ class SignInTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_login_without_required_field_email_must_fail(): void{
+
+        $user = User::factory()->createOne();
+        $password = 'icanseethepassword';
+        $user->password = bcrypt($password);
+        $user->save();
+
+        $response = $this->post('/api/login',[
+            'password'=>$password
+        ]);
+
+        $response->assertBadRequest();
+    }
+
+    public function test_login_without_required_field_password_must_fail(): void{
+
+        $user = User::factory()->createOne();
+        $user->save();
+
+        $response = $this->post('/api/login',[
+            'email'=>$user->email
+        ]);
+
+        $response->assertBadRequest();
+    }
 
 }

@@ -16,6 +16,28 @@ class SignUpTest extends TestCase
 {
     use DatabaseTransactions;
 
+    public function test_signup_with_existing_email_must_fail(){
+
+        $existingUser = User::factory()->createOne();
+        $newUser = User::factory()->make();
+
+        $role = Role::inRandomOrder()->first();
+        $professionalProfile = ProfessionalProfile::where('role_id', $role->id)->inRandomOrder()->first();
+
+        $response = $this->post('/api/signup', [
+            'name' => $newUser->name,
+            'first_surname' => $newUser->first_surname,
+            'second_surname' => $newUser->second_surname,
+            'email' => $existingUser->email,
+            'password' => $newUser->password,
+            'role_id' => $role->id,
+            'professional_profile_id' => $professionalProfile->id,
+            'birthdate' => Carbon::parse($newUser->birth_date)->format('Y-m-d')
+        ]);
+
+        $response->assertBadRequest();
+    }
+
     public function test_signup_without_existing_email_must_success()
     {
 

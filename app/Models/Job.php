@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Libs\ChartHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use function Termwind\breakLine;
 
 /**
  *
@@ -56,7 +57,12 @@ class Job extends Model
         return $this->morphMany(Tag::class, 'taggable');
     }
 
-
+    /**
+     * @param string $scope
+     * @return array
+     *
+     * Generate stats, additional information , etc.. about a job
+     */
     public function generateAdditionalInfo($scope = 'main_info')
     {
 
@@ -121,6 +127,10 @@ class Job extends Model
         ];
     }
 
+    /**
+     * @return array
+     * Display needed information to see and manage candidatures about job
+     */
     public function displayCandidatures(){
 
         $this->loadMissing(['candidatures.status','candidatures.employee.professionalProfile']);

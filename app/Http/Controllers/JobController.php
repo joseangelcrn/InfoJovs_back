@@ -149,47 +149,13 @@ class JobController extends Controller
         ],500);
     }
 
-    public function additionalInfo($id){
+    public function additionalInfo($id,$scope = 'main_info'){
 
-        /** QueryBuilder **/
-//        $status = Candidature::selectRaw('status.id,status.name,count(*) as amount')
-//             ->where('job_id',$id)
-//            ->leftJoin('candidature_statuses as status','status.id','candidatures.status_id')
-//            ->groupBy('status.id')
-//            ->get();
+        $job = Job::findOrFail($id);
 
-        /** Eloquent Query **/
-        $status = CandidatureStatus::
-        whereHas('candidatures')
-        ->withCount(['candidatures as amount'=>function($q) use($id){
-            $q->where('job_id',$id);
-        }])
-            ->get();
+        $result = $job->generateAdditionalInfo($scope);
 
-        /** QueryBuilder **/
-//        $profiles = Candidature::
-//        selectRaw('jobs.id as jobId,profile.id,profile.title,count(*) as amount')
-//            ->where('jobs.id',$id)
-//            ->leftJoin('jobs','candidatures.job_id','jobs.id')
-//            ->leftJoin('users as employee','employee.id','candidatures.employee_id')
-//            ->leftJoin('professional_profiles as profile','profile.id','employee.professional_profile_id')
-//            ->groupBy(['jobs.id','profile.id'])
-//        ->get();
-
-        /** Eloquent Query **/
-        $profiles = ProfessionalProfile::
-        whereRelation('employee.candidatures.job','id','=',$id)
-        ->withCount(['employee as amount'=>function ($q) use($id){
-            $q->whereRelation('candidatures','job_id',$id);
-        }])->get();
-
-        $status = ChartHelper::generateStatus($status);
-        $profiles = ChartHelper::generateProfile($profiles);
-
-        return response()->json([
-            'status'=>$status,
-            'profiles'=>$profiles
-        ]);
+        return response()->json($result);
 
     }
 }

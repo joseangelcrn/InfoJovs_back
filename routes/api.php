@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth:api']], function() {
         Route::get('/search',[JobController::class,'search']);
         Route::get('/{id}',[JobController::class,'info']);
         Route::put('/',[JobController::class,'update']);
-        Route::get('/additional_info/{id}',[JobController::class,'additionalInfo']);
+        Route::get('/additional_info/{id}/{scope?}',[JobController::class,'additionalInfo']);
         Route::post('/update_active',[JobController::class,'updateActiveValue']);
     });
 

@@ -39,7 +39,8 @@ class Job extends Model
     use HasFactory;
     protected $fillable = [
         'title',
-        'description'
+        'description',
+        'created_at'
     ];
 
     public function recruiter()
@@ -50,6 +51,14 @@ class Job extends Model
     public function candidatures()
     {
         return $this->hasMany(Candidature::class, 'job_id');
+    }
+    public function candidaturesOrderByNewDesc()
+    {
+        return $this->candidatures()->orderBy('created_at', 'desc');
+    }
+    public function candidaturesOrderByOldDesc()
+    {
+        return $this->candidatures()->orderBy('created_at');
     }
 
     public function tags()
@@ -133,17 +142,19 @@ class Job extends Model
      */
     public function displayCandidatures(){
 
-        $this->loadMissing(['candidatures.status','candidatures.employee.professionalProfile']);
+        $this->loadMissing(['candidaturesOrderByOldDesc.status','candidaturesOrderByOldDesc.employee.professionalProfile']);
+
         $items = [];
 
-        foreach ($this->candidatures as $cand){
+        foreach ($this->candidaturesOrderByOldDesc as $cand){
             $employee = $cand->employee;
             $professionalProfile = $cand->employee->professionalProfile;
             $status = $cand->status;
             $items[] = [
                 'employee'=>$employee,
                 'professional_profile'=>$professionalProfile,
-                'status'=>$status
+                'status'=>$status,
+                'created_at'=>$cand->created_at->format('Y-m-d H:i:s'),
             ];
         }
 

@@ -46,7 +46,7 @@ class CandidatureSeeder extends Seeder
                 Log::debug('employee profile id = '.$employee->professional_profile_id);
                 Log::debug('job id  = '.$job->id);
 
-                $employee->candidatures()->create(['job_id'=>$job->id,'status_id'=>$statuses->random()->id]);
+                $employee->candidatures()->create(['job_id'=>$job->id,'status_id'=>$statuses->random()->id,'created_at'=>fake()->dateTimeBetween('-14 days')]);
             }
         }
     }

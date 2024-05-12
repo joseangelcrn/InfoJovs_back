@@ -3,17 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Libs\ChartHelper;
-use App\Models\Candidature;
 use App\Models\CandidatureStatus;
 use App\Models\Job;
 use App\Models\ProfessionalProfile;
-use App\Models\User;
-use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\Rules\Can;
 
 class JobController extends Controller
 {
@@ -48,7 +42,9 @@ class JobController extends Controller
             });
         }
 
-        $paginatedJobs = $queryJobs->paginate($perPage, '*', null, $currentPage);
+        $paginatedJobs = $queryJobs
+            ->where('active',true)
+            ->paginate($perPage, '*', null, $currentPage);
 
         return response()->json([
             'jobs' => $paginatedJobs->items(),

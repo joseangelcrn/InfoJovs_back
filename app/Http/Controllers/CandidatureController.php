@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidature;
+use App\Models\CandidatureStatus;
 use App\Models\Job;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,7 +11,14 @@ use Illuminate\Support\Facades\Auth;
 
 class CandidatureController extends Controller
 {
-    //
+
+    public function getAllStatuses()
+    {
+        $statuses = CandidatureStatus::all();
+
+        return response()->json($statuses);
+    }
+
     public function myCandidatures(Request $request){
 
         $perPage = $request->get('perPage',5);

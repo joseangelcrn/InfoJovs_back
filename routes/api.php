@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:api']], function() {
         Route::post('/',[CandidatureController::class,'store']);
         Route::get('/my_candidatures',[CandidatureController::class,'myCandidatures']);
         Route::get('/info/{jobId}',[CandidatureController::class,'info']);
+        Route::get('/statuses',[CandidatureController::class,'getAllStatuses']);
     });
 
 });

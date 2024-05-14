@@ -155,6 +155,7 @@ class Job extends Model
                 'professional_profile'=>$professionalProfile,
                 'status'=>$status,
                 'created_at'=>$cand->created_at->format('Y-m-d H:i:s'),
+                'candidature_id'=>$cand->id
             ];
         }
 

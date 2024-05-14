@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class CandidatureController extends Controller
 {
 
-    public function getAllStatuses()
-    {
-        $statuses = CandidatureStatus::all();
-
-        return response()->json($statuses);
-    }
 
     public function myCandidatures(Request $request){
 

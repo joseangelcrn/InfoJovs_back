@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\CandidatureStatusController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProfessionalProfileController;
 use App\Http\Controllers\RoleController;
@@ -48,7 +49,14 @@ Route::group(['middleware' => ['auth:api']], function() {
         Route::post('/',[CandidatureController::class,'store']);
         Route::get('/my_candidatures',[CandidatureController::class,'myCandidatures']);
         Route::get('/info/{jobId}',[CandidatureController::class,'info']);
-        Route::get('/statuses',[CandidatureController::class,'getAllStatuses']);
+
+
+        //CandidatureStatus - routes
+        Route::group(['prefix'=>'/status'],function(){
+            Route::get('/',[CandidatureStatusController::class,'getAll']);
+            Route::post('/',[CandidatureStatusController::class,'update']);
+
+        });
     });
 
 });

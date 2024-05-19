@@ -19,8 +19,15 @@ class CandidatureStatusController extends Controller
         $candidatureIds = $request->get('candidature_ids');
         $statusId = $request->get('status_id');
 
+        $status = CandidatureStatus::findOrFail($statusId);
         Candidature::whereIn('id',$candidatureIds)->update(['status_id' => $statusId]);
 
-        return response()->json(['message' => 'Status updated successfully']);
+        return response()->json([
+            'message' => 'Status updated successfully',
+            'updated_data'=>[
+                'new_status' => $status,
+                'candidature_ids' => $candidatureIds
+            ]
+        ]);
     }
 }

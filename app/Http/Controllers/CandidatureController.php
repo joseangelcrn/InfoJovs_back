@@ -48,7 +48,7 @@ class CandidatureController extends Controller
     public function info($jobId){
 
 
-        $job = Job::with(['candidatures.status','candidatures.employee'])->findOrFail($jobId);
+        $job = Job::with(['candidatures.status','candidatures.employee.professionalProfile'])->findOrFail($jobId);
 
         if ( !Auth::user()->hasRole('Recruiter') ||  Auth::id() != $job->recruiter_id){
             return response()->json([

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidature;
-use App\Models\CandidatureStatus;
+use App\Models\CandidatureHistory;
 use App\Models\Job;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +37,9 @@ class CandidatureController extends Controller
 
         $job = Job::findOrFail($jobId);
 
-        Auth::user()->candidatures()->firstOrCreate(['job_id' => $job->id]);
+        $newCandidature = Auth::user()->candidatures()->firstOrCreate(['job_id' => $job->id]);
+
+        CandidatureHistory::register($newCandidature->id);
 
         return response()->json([
             'message' => 'Candidature successfully created',

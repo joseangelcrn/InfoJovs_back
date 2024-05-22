@@ -122,7 +122,7 @@ class User extends Authenticatable
 
     public function candidaturesHistory()
     {
-        return $this->hasManyThrough(CandidatureHistory::class,Candidature::class,'id','candidature_id','id')
+        return $this->hasManyThrough(CandidatureHistory::class,Candidature::class,'employee_id')
             ->orderBy('created_at','desc')
             ->with(['statusOrigin','statusDestiny']);
     }

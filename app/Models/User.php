@@ -10,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -118,6 +118,13 @@ class User extends Authenticatable
 
     public function professionalProfile(){
         return $this->belongsTo(ProfessionalProfile::class,'professional_profile_id');
+    }
+
+    public function candidaturesHistory()
+    {
+        return $this->hasManyThrough(CandidatureHistory::class,Candidature::class,'id','candidature_id','id')
+            ->orderBy('created_at','desc')
+            ->with(['statusOrigin','statusDestiny']);
     }
 
     //Tests functions

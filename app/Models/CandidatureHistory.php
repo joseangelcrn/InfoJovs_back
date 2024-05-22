@@ -19,6 +19,9 @@ class CandidatureHistory extends Model
         'destiny_status_id',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+    ];
 
     public function candidature()
     {

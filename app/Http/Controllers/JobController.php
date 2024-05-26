@@ -64,11 +64,12 @@ class JobController extends Controller
         $title = $request->get('title');
         $description = $request->get('description');
         $tags = $request->get('tags', []);
-
+        $questions = $request->get('questions');
 
         $newJob = Auth::user()->jobsAsRecruiter()->create([
             'title' => $title,
-            'description' => $description
+            'description' => $description,
+            'questions' => $questions,
         ]);
 
         foreach ($tags as $tag) {
@@ -87,6 +88,7 @@ class JobController extends Controller
         $title = $request->get('title');
         $description = $request->get('description');
         $tags = $request->get('tags', []);
+        $questions = $request->get('questions');
 
         $job = Job::findOrFail($id);
 
@@ -96,6 +98,7 @@ class JobController extends Controller
 
         $job->title = $title;
         $job->description = $description;
+        $job->questions = $questions;
         $job->save();
 
         foreach ($tags as $tag){

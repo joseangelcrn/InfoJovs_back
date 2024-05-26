@@ -40,6 +40,7 @@ class Job extends Model
     protected $fillable = [
         'title',
         'description',
+        'questions',
         'created_at'
     ];
 

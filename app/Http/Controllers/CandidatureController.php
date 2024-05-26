@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Libs\QuestionHelper;
 use App\Models\Candidature;
 use App\Models\CandidatureHistory;
 use App\Models\Job;
@@ -34,10 +35,13 @@ class CandidatureController extends Controller
     public function store(Request $request)
     {
         $jobId = $request->get('job_id');
+        $questions = $request->get('questions');
 
         $job = Job::findOrFail($jobId);
+        $questions = QuestionHelper::normalize($questions);
 
-        $newCandidature = Auth::user()->candidatures()->firstOrCreate(['job_id' => $job->id]);
+
+        $newCandidature = Auth::user()->candidatures()->firstOrCreate(['job_id' => $job->id,'questions'=>json_encode($questions)]);
 
         CandidatureHistory::register($newCandidature->id);
 

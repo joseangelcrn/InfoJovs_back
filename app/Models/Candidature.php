@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $employee_id
@@ -36,7 +36,8 @@ class Candidature extends Model
     protected $fillable = [
         'employee_id',
         'job_id',
-        'status_id'
+        'status_id',
+        'questions'
     ];
 
     public function  employee(){

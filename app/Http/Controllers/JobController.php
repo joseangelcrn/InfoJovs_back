@@ -69,7 +69,7 @@ class JobController extends Controller
         $newJob = Auth::user()->jobsAsRecruiter()->create([
             'title' => $title,
             'description' => $description,
-            'questions' => $questions,
+            'questions' => json_encode($questions),
         ]);
 
         foreach ($tags as $tag) {
@@ -98,7 +98,7 @@ class JobController extends Controller
 
         $job->title = $title;
         $job->description = $description;
-        $job->questions = $questions;
+        $job->questions = json_encode($questions);
         $job->save();
 
         foreach ($tags as $tag){

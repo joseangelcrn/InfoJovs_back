@@ -43,7 +43,7 @@ class CandidatureController extends Controller
         ]);
 
 
-        $newCandidature = Auth::user()->candidatures()->firstOrCreate(['job_id' => $job->id,'questions'=>json_encode($questions)]);
+        $newCandidature = Auth::user()->candidatures()->create(['job_id' => $job->id,'questions'=>json_encode($questions)]);
 
         CandidatureHistory::register($newCandidature->id);
 

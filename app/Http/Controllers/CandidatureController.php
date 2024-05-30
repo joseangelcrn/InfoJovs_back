@@ -38,7 +38,9 @@ class CandidatureController extends Controller
         $questions = $request->get('questions');
 
         $job = Job::findOrFail($jobId);
-        $questions = QuestionHelper::normalize($questions);
+        $questions = QuestionHelper::normalize($questions,[
+            'remove_edit'
+        ]);
 
 
         $newCandidature = Auth::user()->candidatures()->firstOrCreate(['job_id' => $job->id,'questions'=>json_encode($questions)]);

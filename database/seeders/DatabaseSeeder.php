@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             CandidatureStatusSeeder::class, //Required
             CandidatureSeeder::class,
             TagSeeder::class,
-            CandidatureHistorySeeder::class
+            CandidatureHistorySeeder::class,
+            QuestionsJobSeeder::class
         ]);
     }
 }

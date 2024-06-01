@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Libs\ChartHelper;
-use App\Models\CandidatureStatus;
 use App\Models\Job;
-use App\Models\ProfessionalProfile;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
@@ -61,6 +59,10 @@ class JobController extends Controller
     public function store(Request $request)
     {
 
+        if (!Auth::user()->hasRole('Recruiter')){
+            return response()->json(['message'=>'Unauthorized'],Response::HTTP_UNAUTHORIZED);
+        }
+
         $title = $request->get('title');
         $description = $request->get('description');
         $tags = $request->get('tags', []);
@@ -90,11 +92,18 @@ class JobController extends Controller
         $tags = $request->get('tags', []);
         $questions = $request->get('questions');
 
+
+        if (
+            !Auth::user()->hasRole('Recruiter') or
+            (Auth::user()->hasRole('Recruiter') and !Auth::user()->jobsAsRecruiter()->where('id',$id)->exists())
+
+        ){
+            return response()->json(['message'=>'Unauthorized'],Response::HTTP_UNAUTHORIZED);
+        }
+
+
         $job = Job::findOrFail($id);
 
-        if (Auth::id() != $job->recruiter_id){
-            return response()->json(['message'=>'You can only update your own jobs'],400);
-        }
 
         $job->title = $title;
         $job->description = $description;
@@ -130,12 +139,12 @@ class JobController extends Controller
 
         if (
             !Auth::user()->hasRole('Recruiter') or
-            !Auth::user()->whereRelation('jobsAsRecruiter','id',$jobId)->exists()
+            (Auth::user()->hasRole('Recruiter') and !Auth::user()->jobsAsRecruiter()->where('id',$jobId)->exists())
+
         ){
-            return response()->json([
-                'message'=>'Unauthorized'
-            ],401);
+            return response()->json(['message'=>'Unauthorized'],Response::HTTP_UNAUTHORIZED);
         }
+
 
 
         $result = Job::where('id',$jobId)->update(['active'=>$activeValue]);
@@ -153,6 +162,15 @@ class JobController extends Controller
     }
 
     public function additionalInfo($id,$scope = 'main_info'){
+
+        if (
+            !Auth::user()->hasRole('Recruiter') or
+            (Auth::user()->hasRole('Recruiter') and !Auth::user()->jobsAsRecruiter()->where('id',$id)->exists())
+
+        ){
+            return response()->json(['message'=>'Unauthorized'],Response::HTTP_UNAUTHORIZED);
+        }
+
 
         $job = Job::findOrFail($id);
 

@@ -16,6 +16,7 @@ class JobController extends Controller
         $title = $request->get('title');
         $description = $request->get('description');
         $ignoreOwn = $request->get('ignore_own') == "true";
+        $tags = $request->get('tags');
 
         $perPage = $request->get('perPage', 5);
         $currentPage = $request->get('currentPage', 1);
@@ -37,6 +38,12 @@ class JobController extends Controller
         else if ($ignoreOwn and Auth::user()->hasRole('Employee')){
             $queryJobs = $queryJobs->whereDoesntHave('candidatures.employee',function($q){
                 return $q->where('employee_id',Auth::id());
+            });
+        }
+
+        if ($tags){
+            $queryJobs = $queryJobs->whereHas('tags',function($q) use ($tags){
+                return $q->whereIn('name',$tags);
             });
         }
 

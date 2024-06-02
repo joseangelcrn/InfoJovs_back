@@ -55,4 +55,8 @@ class Candidature extends Model
     public function status(){
         return $this->belongsTo(CandidatureStatus::class,'status_id');
     }
+
+    public function history(){
+        return $this->hasMany(CandidatureHistory::class,'candidature_id');
+    }
 }

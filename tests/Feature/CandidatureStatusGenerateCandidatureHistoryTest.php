@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\PassportTestCase;
 use Tests\TestCase;
 
-class ChangeCandidatureStatusAsRecruiterTest extends PassportTestCase
+class CandidatureStatusGenerateCandidatureHistoryTest extends PassportTestCase
 {
 
     public function setUp(): void

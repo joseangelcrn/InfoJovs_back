@@ -19,17 +19,27 @@ An application with two main roles ( **Recruiter** and **Employee** )  where you
 ### **Recruiter**
 
 - [x] You can create offers
-- [ ] You can close your offers 
-- [ ] See how many employees have applied to the offer
-- [ ] Change status of candidatures for employees who are applied in your own offers
+- [x] You can close your offers 
+- [x] See how many employees have applied to the offer
+- [x] Change status of candidatures for employees who has applied in your own offers
+- [x] You can attach questions to job application. It will be displayed to employees once they will applicate job.
 
 
 ### **Employee**
 
 - [x] You can apply offers
 - [x] See your candidatures status
-- [ ] You can create a dynamic CV who recruiters will be able to see to get more information about your professional profile
+- [x] You can see an history of  your candidatures.
+- [ ] You can create a dynamic CV who recruiters will be able to see to get more information of  your professional profile
 - [ ] You can search jobs filtering by different fields
+
+### **Infrastructure**
+
+- [ ] Queue Service to manage notifications when Recruiters changes candidatures statuses of Employees. (RabbitMQ, Kafka... )
+
+### **Others**
+
+- [ ] Improve filters of Job Finder
 
       
 <hr>

@@ -49,6 +49,7 @@ class CandidatureController extends Controller
 
         return response()->json([
             'message' => 'Candidature successfully created',
+            'candidature' => $newCandidature
         ]);
     }
 

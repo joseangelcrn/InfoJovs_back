@@ -3,6 +3,7 @@
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\CandidatureHistoryController;
 use App\Http\Controllers\CandidatureStatusController;
+use App\Http\Controllers\CVController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProfessionalProfileController;
 use App\Http\Controllers\RoleController;
@@ -65,5 +66,11 @@ Route::group(['middleware' => ['auth:api']], function() {
             Route::get('/{jobId}',[CandidatureHistoryController::class,'getHistory'])->name('candidatureHistory.getHistory');
         });
     });
+
+    //Cv - routes
+    Route::group(['prefix'=>'/cv'],function(){
+        Route::get('/info/{userId?}',[CVController::class,'info'])->name('cv.info');
+    });
+
 
 });

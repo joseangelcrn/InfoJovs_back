@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             CandidatureSeeder::class,
             TagSeeder::class,
             CandidatureHistorySeeder::class,
-            QuestionsJobSeeder::class
+            QuestionsJobSeeder::class,
+            CVSeeder::class
         ]);
     }
 }

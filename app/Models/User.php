@@ -127,6 +127,10 @@ class User extends Authenticatable
             ->with(['statusOrigin','statusDestiny']);
     }
 
+    public function cv() {
+        return $this->hasOne(CV::class)->with(['experiences','skills']);
+    }
+
     //Tests functions
     public static function getEmployee(){
         return self::where('name','employee')->first();

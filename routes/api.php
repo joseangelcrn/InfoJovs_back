@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth:api']], function() {
     //Cv - routes
     Route::group(['prefix'=>'/cv'],function(){
         Route::get('/info/{userId?}',[CVController::class,'info'])->name('cv.info');
+        Route::post('/',[CVController::class,'save'])->name('cv.save');
     });
 
 

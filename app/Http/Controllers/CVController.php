@@ -59,7 +59,7 @@ class CVController extends Controller
             $newData->save();
 
         } else if($type === 'experience' and !$id){
-            $newData = $user->cv()->experiences()->create([
+            $newData = $user->cv->experiences()->create([
                 'business'=>$business,
                 'description'=>$description,
                 'start_date'=>$startDate,
@@ -73,7 +73,7 @@ class CVController extends Controller
             $newData->save();
 
         }else if($type === 'skill' and !$id){
-            $newData = $user->cv()->skills()->create([
+            $newData = $user->cv->skills()->create([
                 'name'=>$name,
                 'value'=>$value,
             ]);

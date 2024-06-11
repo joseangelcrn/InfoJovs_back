@@ -94,4 +94,24 @@ class CVController extends Controller
         ]);
 
     }
+
+    public function delete(Request $request)
+    {
+        $id = $request->integer('id');
+        $type = $request->get('type');
+
+        if ($type === 'experiences'){
+            Experience::findOrFail($id)->delete();
+        }
+        else if ($type === 'skills'){
+            Skill::findOrFail($id)->delete();
+        }
+
+
+        $message = ucfirst(substr_replace($type ,"", -1))." has been deleted.";
+
+        return response()->json([
+            'message'=>$message
+        ]);
+    }
 }

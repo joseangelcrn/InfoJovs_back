@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::group(['prefix'=>'/cv'],function(){
         Route::get('/info/{userId?}',[CVController::class,'info'])->name('cv.info');
         Route::post('/',[CVController::class,'save'])->name('cv.save');
+        Route::delete('/',[CVController::class,'delete'])->name('cv.delete');
     });
 
 
